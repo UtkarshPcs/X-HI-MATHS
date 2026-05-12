@@ -291,6 +291,7 @@ export default function App() {
   const [sidebarOpen,    setSidebarOpen]    = useState(false);
   const windowWidth = useWindowWidth();
   const isMobile    = windowWidth < 640;
+  const isTablet    = windowWidth < 900;
 
   const bg        = darkMode ? "#0f172a" : "#f8fafc";
   const textColor = darkMode ? "#f8fafc"  : "#0f172a";
@@ -358,7 +359,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: bg, color: textColor, fontFamily: "'Inter', system-ui, sans-serif", transition: "background 0.3s" }}>
+    <div style={{ minHeight: "100vh", background: bg, color: textColor, fontFamily: "'Inter', system-ui, sans-serif", transition: "background 0.3s", overflowX: "hidden" }}>
 
       {/* NAVBAR */}
       <nav style={{
@@ -366,15 +367,18 @@ export default function App() {
         background: darkMode ? "rgba(15,23,42,0.88)" : "rgba(255,255,255,0.88)",
         backdropFilter: "blur(14px)",
         borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
-        padding: "0 24px", height: 64,
+        padding: "0 16px", height: 64,
         display: "flex", alignItems: "center", justifyContent: "space-between",
+        gap: 8, minWidth: 0,
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0, flex: "0 1 auto" }}>
           <button onClick={() => setSidebarOpen(o => !o)}
-            style={{ background: "none", border: "none", color: textColor, fontSize: 20, cursor: "pointer", lineHeight: 1 }}>
+            style={{ background: "none", border: "none", color: textColor, fontSize: 20, cursor: "pointer", lineHeight: 1, flexShrink: 0 }}>
             ☰
           </button>
-          <span style={{ fontWeight: 800, fontSize: 17, letterSpacing: "-0.5px" }}>Maths Analytics</span>
+          <span style={{ fontWeight: 800, fontSize: isMobile ? 14 : 17, letterSpacing: "-0.5px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            {isMobile ? "Maths Analytics" : "Maths Analytics"}
+          </span>
         </div>
         <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           {!isMobile && SECTIONS.map(s => (
@@ -395,39 +399,53 @@ export default function App() {
         </div>
       </nav>
 
-      {/* SIDEBAR */}
+      {/* SIDEBAR BACKDROP + PANEL */}
       {sidebarOpen && (
-        <div style={{
-          position: "fixed", top: 64, left: 0, bottom: 0, width: 220, zIndex: 200,
-          background: darkMode ? "#1e293b" : "#ffffff",
-          borderRight: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
-          padding: 20, boxShadow: "4px 0 20px rgba(0,0,0,0.15)",
-        }}>
-          {SECTIONS.map(s => (
-            <button key={s} onClick={() => scrollTo(s)} style={{
-              display: "block", width: "100%", textAlign: "left",
-              background: activeSection === s ? (darkMode ? "#0f172a" : "#f1f5f9") : "transparent",
-              border: "none",
-              color: activeSection === s ? C.primary : mutedText,
-              padding: "11px 14px", fontSize: 15, fontWeight: 600,
-              cursor: "pointer", borderRadius: 8, marginBottom: 6,
-            }}>{s}</button>
-          ))}
-        </div>
+        <>
+          {/* Backdrop — tap to close on mobile */}
+          <div
+            onClick={() => setSidebarOpen(false)}
+            style={{
+              position: "fixed", inset: 0, zIndex: 199,
+              background: "rgba(0,0,0,0.35)",
+              backdropFilter: "blur(2px)",
+            }}
+          />
+          <div style={{
+            position: "fixed", top: 64, left: 0, bottom: 0,
+            width: isMobile ? "75vw" : 220,
+            maxWidth: 280, zIndex: 200,
+            background: darkMode ? "#1e293b" : "#ffffff",
+            borderRight: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
+            padding: 20, boxShadow: "4px 0 24px rgba(0,0,0,0.2)",
+            overflowY: "auto",
+          }}>
+            {SECTIONS.map(s => (
+              <button key={s} onClick={() => scrollTo(s)} style={{
+                display: "block", width: "100%", textAlign: "left",
+                background: activeSection === s ? (darkMode ? "#0f172a" : "#f1f5f9") : "transparent",
+                border: "none",
+                color: activeSection === s ? C.primary : mutedText,
+                padding: "12px 14px", fontSize: 15, fontWeight: 600,
+                cursor: "pointer", borderRadius: 8, marginBottom: 6,
+              }}>{s}</button>
+            ))}
+          </div>
+        </>
       )}
 
       {/* MAIN CONTENT */}
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 20px 80px" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: isMobile ? "0 12px 60px" : "0 20px 80px" }}>
 
         {/* HERO / OVERVIEW */}
-        <div id="Overview" style={{ textAlign: "center", padding: "80px 0 60px" }}>
+        <div id="Overview" style={{ textAlign: "center", padding: isMobile ? "40px 0 32px" : "80px 0 60px" }}>
           <div style={{ display: "inline-block", padding: "5px 16px", borderRadius: 20, marginBottom: 20, fontSize: 13, fontWeight: 600, color: C.info, background: `${C.info}18`, border: `1px solid ${C.info}40` }}>
             Performance Report
           </div>
-          <h1 style={{ fontSize: "clamp(28px, 5vw, 46px)", fontWeight: 800, letterSpacing: "-1px", margin: "0 0 16px", color: textColor }}>
+          <h1 style={{ fontSize: "clamp(22px, 5vw, 46px)", fontWeight: 800, letterSpacing: "-1px", margin: "0 0 14px", color: textColor, lineHeight: 1.2 }}>
             Maths Weekly Test Dashboard
           </h1>
-          <p style={{ color: mutedText, fontSize: 17, maxWidth: 580, margin: "0 auto 36px" }}>
+          <p style={{ color: mutedText, fontSize: isMobile ? 15 : 17, maxWidth: 560, margin: "0 auto 28px", lineHeight: 1.6 }}>
             Comprehensive analytics for Weekly Test 1 &amp; Test 2 — tracking 40 students.
           </p>
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
@@ -457,7 +475,7 @@ export default function App() {
         </div>
 
         {/* STAT CARDS */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 18, marginBottom: 60 }}>
+        <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fill, minmax(min(${isMobile ? "140px" : "200px"}, 100%), 1fr))`, gap: isMobile ? 12 : 18, marginBottom: isMobile ? 40 : 60 }}>
           <StatCard darkMode={darkMode} label="Total Students"    value={40}               color={C.primary}   />
           <StatCard darkMode={darkMode} label="Present (Test 2)"  value={t2Present}        color={C.success}   />
           <StatCard darkMode={darkMode} label="Absent (Test 2)"   value={t2Absent}         color={C.danger}    />
@@ -471,7 +489,7 @@ export default function App() {
         {/* CHARTS */}
         <div id="Charts" style={{ marginBottom: 60 }}>
           <SectionHeader title="Analytics Charts" subtitle="Visual breakdown of class performance" textColor={textColor} mutedText={mutedText} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))", gap: 22, marginBottom: 22 }}>
+          <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(min(380px, 100%), 1fr))`, gap: isMobile ? 14 : 22, marginBottom: isMobile ? 14 : 22 }}>
             <Card darkMode={darkMode}>
               <h3 style={{ color: textColor, marginBottom: 18, fontWeight: 700, fontSize: 15 }}>Average: Test 1 vs Test 2</h3>
               <ResponsiveContainer width="100%" height={250}>
@@ -497,7 +515,7 @@ export default function App() {
               </ResponsiveContainer>
             </Card>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))", gap: 22, marginBottom: 22 }}>
+          <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(min(380px, 100%), 1fr))`, gap: isMobile ? 14 : 22, marginBottom: isMobile ? 14 : 22 }}>
             <Card darkMode={darkMode}>
               <h3 style={{ color: textColor, marginBottom: 18, fontWeight: 700, fontSize: 15 }}>Top 10 Scorers (By Average)</h3>
               <ResponsiveContainer width="100%" height={310}>
@@ -527,24 +545,29 @@ export default function App() {
           </div>
           <Card darkMode={darkMode}>
             <h3 style={{ color: textColor, marginBottom: 18, fontWeight: 700, fontSize: 15 }}>Student Comparison (Test 1 vs Test 2)</h3>
-            <ResponsiveContainer width="100%" height={340}>
-              <BarChart data={t1t2Compare} margin={{ top: 16, right: 0, left: -20, bottom: 40 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={darkMode ? "#334155" : "#e2e8f0"} />
-                <XAxis dataKey="name" {...axisProps} tick={{ fontSize: 10 }} interval={0} angle={-45} textAnchor="end" />
-                <YAxis domain={[0, 10]} {...axisProps} />
-                <Tooltip {...tooltipStyle} cursor={{ fill: darkMode ? "#334155" : "#f1f5f9" }} />
-                <Legend wrapperStyle={{ paddingTop: 20 }} />
-                <Bar dataKey="Test 1" fill={C.primary}   radius={[4, 4, 0, 0]} />
-                <Bar dataKey="Test 2" fill={C.secondary} radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+            {/* Horizontally scrollable on small screens so 30 bars never get crushed */}
+            <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+              <div style={{ minWidth: isMobile ? 600 : "100%" }}>
+                <ResponsiveContainer width="100%" height={340}>
+                  <BarChart data={t1t2Compare} margin={{ top: 16, right: 8, left: -10, bottom: 50 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={darkMode ? "#334155" : "#e2e8f0"} />
+                    <XAxis dataKey="name" {...axisProps} tick={{ fontSize: 9 }} interval={0} angle={-45} textAnchor="end" />
+                    <YAxis domain={[0, 10]} {...axisProps} />
+                    <Tooltip {...tooltipStyle} cursor={{ fill: darkMode ? "#334155" : "#f1f5f9" }} />
+                    <Legend wrapperStyle={{ paddingTop: 20 }} />
+                    <Bar dataKey="Test 1" fill={C.primary}   radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="Test 2" fill={C.secondary} radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
           </Card>
         </div>
 
         {/* SMART INSIGHTS */}
         <div id="Insights" style={{ marginBottom: 60 }}>
           <SectionHeader title="Smart Insights" subtitle="Automated analysis based on class performance" textColor={textColor} mutedText={mutedText} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18 }}>
+          <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(min(260px, 100%), 1fr))`, gap: isMobile ? 12 : 18 }}>
             <InsightCard darkMode={darkMode} title="Best Performer"        color={C.info}      value={`${highestScorer.name} (Avg: ${highestScorer.avg?.toFixed(1)})`} />
             <InsightCard darkMode={darkMode} title="Most Improved"         color={C.success}   value={`${mostImproved[0]?.name} (+${mostImproved[0]?.improvement} marks)`} />
             <InsightCard darkMode={darkMode} title="Highest Score Recorded" color={C.primary}  value={`${Math.max(...t1Scores, ...t2Scores)} / 10`} />
@@ -561,11 +584,11 @@ export default function App() {
         <div id="Students" style={{ marginBottom: 60 }}>
           <SectionHeader title="Student Roster" subtitle="Full list with search and sort" textColor={textColor} mutedText={mutedText} />
           <Card darkMode={darkMode} className="overflow-hidden p-0">
-            <div style={{ display: "flex", gap: 14, padding: 18, borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`, flexWrap: "wrap", background: darkMode ? "#1e293b" : "#f8fafc" }}>
+            <div style={{ display: "flex", gap: 10, padding: isMobile ? 12 : 18, borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`, flexWrap: "wrap", background: darkMode ? "#1e293b" : "#f8fafc" }}>
               <input
                 value={search} onChange={e => setSearch(e.target.value)}
                 placeholder="Search by name…"
-                style={{ flex: 1, minWidth: 220, padding: "9px 14px", borderRadius: 8, background: darkMode ? "#0f172a" : "#ffffff", border: `1px solid ${darkMode ? "#334155" : "#cbd5e1"}`, color: textColor, fontSize: 14, outline: "none" }}
+                style={{ flex: 1, minWidth: isMobile ? "100%" : 200, padding: "9px 14px", borderRadius: 8, background: darkMode ? "#0f172a" : "#ffffff", border: `1px solid ${darkMode ? "#334155" : "#cbd5e1"}`, color: textColor, fontSize: 14, outline: "none" }}
               />
               <select onChange={e => setSortKey(e.target.value)}
                 style={{ padding: "9px 14px", borderRadius: 8, background: darkMode ? "#0f172a" : "#ffffff", border: `1px solid ${darkMode ? "#334155" : "#cbd5e1"}`, color: textColor, fontSize: 14, outline: "none", cursor: "pointer" }}>
@@ -580,12 +603,12 @@ export default function App() {
                 {sortDir === "asc" ? "↑ Asc" : "↓ Desc"}
               </button>
             </div>
-            <div style={{ overflowX: "auto" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
+            <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: isMobile ? 12 : 14, minWidth: 560 }}>
                 <thead>
                   <tr style={{ background: darkMode ? "#0f172a" : "#f1f5f9" }}>
                     {["Roll", "Name", "Test 1", "Test 2", "Total", "Average", "T2 Status", "Evaluation"].map(h => (
-                      <th key={h} style={{ padding: "13px 18px", textAlign: "left", color: mutedText, fontWeight: 700, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.5px", borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}` }}>{h}</th>
+                      <th key={h} style={{ padding: isMobile ? "10px 12px" : "13px 18px", textAlign: "left", color: mutedText, fontWeight: 700, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.5px", borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`, whiteSpace: "nowrap" }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -593,7 +616,7 @@ export default function App() {
                   {filtered.map(s => {
                     const badge   = getBadge(s);
                     const isAbsent= s.absentBoth;
-                    const td = { padding: "13px 18px", borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}` };
+                    const td = { padding: isMobile ? "10px 12px" : "13px 18px", borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`, whiteSpace: "nowrap" };
                     return (
                       <tr key={s.roll}
                         style={{ background: isAbsent ? (darkMode ? "rgba(225,29,72,0.06)" : "rgba(225,29,72,0.02)") : "transparent", transition: "background 0.15s" }}
@@ -624,7 +647,7 @@ export default function App() {
         {/* HIGHLIGHTS */}
         <div id="Highlights" style={{ marginBottom: 60 }}>
           <SectionHeader title="Special Highlights" subtitle="Notable student groups and performance brackets" textColor={textColor} mutedText={mutedText} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 22 }}>
+          <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(min(280px, 100%), 1fr))`, gap: isMobile ? 14 : 22 }}>
             <Card darkMode={darkMode}>
               <h3 style={{ color: C.info, marginBottom: 14, fontWeight: 700, fontSize: 15, borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`, paddingBottom: 12 }}>🏆 Top 5 Students</h3>
               {top5.map((s, i) => <StudentRow key={s.roll} s={s} color={C.info} rank={i + 1} showAvg mutedText={mutedText} darkMode={darkMode} />)}
