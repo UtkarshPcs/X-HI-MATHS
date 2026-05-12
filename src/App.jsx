@@ -8,7 +8,7 @@ import autoTable from "jspdf-autotable";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const RAW_DATA = [
-  { roll: 1,  name: "Aditya",         test1: 8,    test2: 6    },
+  { roll: 1,  name: "Aditya 1",        test1: 8,    test2: 6    },
   { roll: 2,  name: "Shreya",         test1: 7,    test2: 4    },
   { roll: 3,  name: "Shourya",        test1: "Ab", test2: "Ab" },
   { roll: 4,  name: "Mihika",         test1: "Ab", test2: 4    },
@@ -29,16 +29,16 @@ const RAW_DATA = [
   { roll: 19, name: "Sushant",        test1: 7,    test2: 6    },
   { roll: 20, name: "Arnav",          test1: 0,    test2: 0    },
   { roll: 21, name: "Deepanshu",      test1: 2,    test2: 0    },
-  { roll: 22, name: "Anshuka",        test1: 2,    test2: 0    },
+  { roll: 22, name: "Anushka 22",     test1: 2,    test2: 0    },
   { roll: 23, name: "Utkarsh",        test1: 8,    test2: 10   },
   { roll: 24, name: "Vibhav",         test1: 0,    test2: 1    },
   { roll: 25, name: "Aadarsh",        test1: 7,    test2: "Ab" },
   { roll: 26, name: "Sahil",          test1: 2,    test2: "Ab" },
   { roll: 27, name: "Ayush Kumar",    test1: 6,    test2: 3    },
   { roll: 28, name: "Awni",           test1: 6,    test2: 2    },
-  { roll: 29, name: "Aditya Prakash", test1: 7,    test2: 5    },
+  { roll: 29, name: "Aditya Praksh 29", test1: 7,  test2: 5    },
   { roll: 30, name: "Abhigyan",       test1: 1,    test2: 0    },
-  { roll: 31, name: "Anushka",        test1: 5,    test2: 9    },
+  { roll: 31, name: "Anushka 31",     test1: 5,    test2: 9    },
   { roll: 32, name: "Shivam",         test1: 6,    test2: 2    },
   { roll: 33, name: "Chirag",         test1: 6,    test2: 10   },
   { roll: 34, name: "Khushi",         test1: 6,    test2: "Ab" },
@@ -85,6 +85,12 @@ const C = {
 };
 const GRADE_COLORS = [C.primary, C.secondary, C.info, C.danger, C.warning];
 const SECTIONS     = ["Overview", "Charts", "Insights", "Students", "Highlights"];
+
+// Rolls that should always show their FULL name (not just first word) in charts
+const FULL_NAME_ROLLS = new Set([40]);
+function displayName(s) {
+  return FULL_NAME_ROLLS.has(s.roll) ? s.name : s.name.split(" ")[0];
+}
 
 // ─── HOOKS ───────────────────────────────────────────────────────────────────
 function useWindowWidth() {
@@ -311,7 +317,7 @@ export default function App() {
 
   const t1t2Compare = STUDENTS
     .filter(s => s.t1 !== null && s.t2 !== null)
-    .map(s => ({ name: s.name.split(" ")[0], "Test 1": s.t1, "Test 2": s.t2 }));
+    .map(s => ({ name: displayName(s), "Test 1": s.t1, "Test 2": s.t2 }));
 
   // FIX: Count individual test-score entries per bucket, not students
   const allScores = [
@@ -481,7 +487,7 @@ export default function App() {
           <StatCard darkMode={darkMode} label="Absent (Test 2)"   value={t2Absent}         color={C.danger}    />
           <StatCard darkMode={darkMode} label="Test 1 Average"    value={t1Avg}            color={C.info}      isFloat />
           <StatCard darkMode={darkMode} label="Test 2 Average"    value={t2Avg}            color={C.secondary} isFloat />
-          <StatCard darkMode={darkMode} label="Top Scorer"        value={highestScorer.name.split(" ")[0]} color={C.success} isFloat />
+          <StatCard darkMode={darkMode} label="Top Scorer" value={displayName(highestScorer)} color={C.success} isFloat />
           <StatCard darkMode={darkMode} label="Absent Both Tests" value={absentBothList.length} color={C.danger} />
           <StatCard darkMode={darkMode} label="Attendance Rate"   value={`${attendanceRatio}%`} color={C.primary} isFloat />
         </div>
@@ -519,7 +525,7 @@ export default function App() {
             <Card darkMode={darkMode}>
               <h3 style={{ color: textColor, marginBottom: 18, fontWeight: 700, fontSize: 15 }}>Top 10 Scorers (By Average)</h3>
               <ResponsiveContainer width="100%" height={310}>
-                <BarChart data={top10.map(s => ({ name: s.name.split(" ")[0], avg: parseFloat(s.avg.toFixed(1)) }))} layout="vertical" margin={{ left: 10 }}>
+                <BarChart data={top10.map(s => ({ name: displayName(s), avg: parseFloat(s.avg.toFixed(1)) }))} layout="vertical" margin={{ left: 10 }}>
                   <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={darkMode ? "#334155" : "#e2e8f0"} />
                   <XAxis type="number" domain={[0, 10]} {...axisProps} />
                   <YAxis dataKey="name" type="category" width={76} {...axisProps} tick={{ fontSize: 11, fill: mutedText }} />
@@ -568,7 +574,7 @@ export default function App() {
         <div id="Insights" style={{ marginBottom: 60 }}>
           <SectionHeader title="Smart Insights" subtitle="Automated analysis based on class performance" textColor={textColor} mutedText={mutedText} />
           <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(min(260px, 100%), 1fr))`, gap: isMobile ? 12 : 18 }}>
-            <InsightCard darkMode={darkMode} title="Best Performer"        color={C.info}      value={`${highestScorer.name} (Avg: ${highestScorer.avg?.toFixed(1)})`} />
+            <InsightCard darkMode={darkMode} title="Best Performer" color={C.info} value={`${highestScorer.name} (Avg: ${highestScorer.avg?.toFixed(1)})`} />
             <InsightCard darkMode={darkMode} title="Most Improved"         color={C.success}   value={`${mostImproved[0]?.name} (+${mostImproved[0]?.improvement} marks)`} />
             <InsightCard darkMode={darkMode} title="Highest Score Recorded" color={C.primary}  value={`${Math.max(...t1Scores, ...t2Scores)} / 10`} />
             <InsightCard darkMode={darkMode} title="Lowest Score Recorded"  color={C.danger}   value={`${Math.min(...t1Scores, ...t2Scores)} / 10`} />
