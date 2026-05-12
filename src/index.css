@@ -1,0 +1,36 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tailwind-like utility classes used in the app */
+.rounded-xl { border-radius: 12px; }
+.p-6 { padding: 24px; }
+.p-0 { padding: 0; }
+.overflow-hidden { overflow: hidden; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.gap-1 { gap: 4px; }
+.cursor-default { cursor: default; }
+.hover\:-translate-y-1:hover { transform: translateY(-4px); }
+.text-xs { font-size: 12px; }
+.text-sm { font-size: 14px; }
+.text-3xl { font-size: 30px; }
+.font-bold { font-weight: 700; }
+.uppercase { text-transform: uppercase; }
+.tracking-wider { letter-spacing: 0.05em; }
+.mt-1 { margin-top: 4px; }
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+
+/* Print styles for PDF export */
+@media print {
+  nav, button, .no-print { display: none !important; }
+  body { background: white !important; color: black !important; }
+  .page-break { page-break-before: always; }
+}
