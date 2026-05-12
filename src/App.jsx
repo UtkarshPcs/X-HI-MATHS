@@ -23,7 +23,7 @@ const RAW_DATA = [
   { roll: 13, name: "Aman Kishor",    test1: "Ab", test2: 10   },
   { roll: 14, name: "Kirti",          test1: 8,    test2: 0    },
   { roll: 15, name: "Suryanahu",      test1: 4,    test2: "Ab" },
-  { roll: 16, name: "Mohit",          test1: 1,    test2: "Ab" },
+  { roll: 16, name: "Mohit",          test1: 4,    test2: "Na" },
   { roll: 17, name: "Virat Singh",    test1: 6,    test2: "Ab" },
   { roll: 18, name: "Rudransh",       test1: 10,   test2: 7    },
   { roll: 19, name: "Sushant",        test1: 7,    test2: 6    },
@@ -52,14 +52,19 @@ const RAW_DATA = [
 
 function processData(raw) {
   return raw.map(s => {
-    const t1 = s.test1 === "Ab" ? null : s.test1;
-    const t2 = s.test2 === "Ab" ? null : s.test2;
+    // "Ab" = absent, "Na" = score not available — both treated as null in stats
+    const parse = v => (v === "Ab" || v === "Na") ? null : v;
+    const label = v => v === "Na" ? "N/A" : "Absent";
+    const t1 = parse(s.test1);
+    const t2 = parse(s.test2);
+    const t1Label = t1 === null ? label(s.test1) : null;
+    const t2Label = t2 === null ? label(s.test2) : null;
     const scores = [t1, t2].filter(v => v !== null);
     const avg   = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : null;
     const total = scores.length ? scores.reduce((a, b) => a + b, 0) : null;
     const absentBoth  = t1 === null && t2 === null;
     const improvement = t1 !== null && t2 !== null ? t2 - t1 : null;
-    return { ...s, t1, t2, avg, total, absentBoth, improvement };
+    return { ...s, t1, t2, t1Label, t2Label, avg, total, absentBoth, improvement };
   });
 }
 
@@ -110,8 +115,8 @@ function downloadCSV() {
     [
       s.roll,
       `"${s.name}"`,
-      s.t1 ?? "Absent",
-      s.t2 ?? "Absent",
+      s.t1 !== null ? s.t1 : (s.t1Label || "Absent"),
+      s.t2 !== null ? s.t2 : (s.t2Label || "Absent"),
       s.total ?? "-",
       s.avg != null ? s.avg.toFixed(2) : "-",
       s.absentBoth ? "Absent Both" : s.t2 === null ? "Absent T2" : "Present",
@@ -148,8 +153,8 @@ function downloadPDF() {
       return [
         s.roll,
         s.name,
-        s.t1 ?? "Absent",
-        s.t2 ?? "Absent",
+        s.t1 !== null ? s.t1 : (s.t1Label || "Absent"),
+        s.t2 !== null ? s.t2 : (s.t2Label || "Absent"),
         s.total ?? "—",
         s.avg != null ? s.avg.toFixed(2) : "—",
         s.absentBoth ? "Absent Both" : s.t2 === null ? "Absent T2" : "Present",
@@ -657,11 +662,11 @@ export default function App() {
                       >
                         <td style={{ ...td, color: mutedText }}>{s.roll}</td>
                         <td style={{ ...td, fontWeight: 600 }}>{s.name}</td>
-                        <td style={td}>{s.t1 ?? <span style={{ color: C.warning }}>Absent</span>}</td>
-                        <td style={td}>{s.t2 ?? <span style={{ color: C.warning }}>Absent</span>}</td>
+                        <td style={td}>{s.t1 !== null ? s.t1 : <span style={{ color: s.t1Label === "N/A" ? C.info : C.warning }}>{s.t1Label}</span>}</td>
+                        <td style={td}>{s.t2 !== null ? s.t2 : <span style={{ color: s.t2Label === "N/A" ? C.info : C.warning }}>{s.t2Label}</span>}</td>
                         <td style={td}>{s.total ?? "—"}</td>
                         <td style={{ ...td, fontWeight: 700 }}>{s.avg?.toFixed(1) ?? "—"}</td>
-                        <td style={{ ...td, color: s.t2 === null ? C.danger : C.success, fontWeight: 600 }}>{s.t2 === null ? "Absent" : "Present"}</td>
+                        <td style={{ ...td, color: s.t2 === null ? (s.t2Label === "N/A" ? C.info : C.danger) : C.success, fontWeight: 600 }}>{s.t2 === null ? (s.t2Label || "Absent") : "Present"}</td>
                         <td style={td}>
                           <span style={{ background: `${badge.color}18`, color: badge.color, padding: "3px 10px", borderRadius: 6, fontSize: 12, fontWeight: 700 }}>
                             {badge.label}
