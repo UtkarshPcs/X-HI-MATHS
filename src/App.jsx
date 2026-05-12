@@ -8,46 +8,46 @@ import autoTable from "jspdf-autotable";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const RAW_DATA = [
-  { roll: 1,  name: "Aditya 1",        test1: 8,    test2: 6    },
-  { roll: 2,  name: "Shreya",         test1: 7,    test2: 4    },
-  { roll: 3,  name: "Shourya",        test1: "Ab", test2: "Ab" },
-  { roll: 4,  name: "Mihika",         test1: "Ab", test2: 4    },
-  { roll: 5,  name: "Anuraj",         test1: 10,   test2: 9    },
-  { roll: 6,  name: "Parth",          test1: 10,   test2: 9    },
-  { roll: 7,  name: "Ravi",           test1: 5,    test2: 6    },
-  { roll: 8,  name: "Ruchir",         test1: 5,    test2: 5    },
-  { roll: 9,  name: "Sonali",         test1: 7,    test2: 7    },
-  { roll: 10, name: "Yesh",           test1: 6,    test2: 6    },
-  { roll: 11, name: "Isha",           test1: 6,    test2: 4    },
-  { roll: 12, name: "Ayush",          test1: 7,    test2: 6    },
-  { roll: 13, name: "Aman Kishor",    test1: "Ab", test2: 10   },
-  { roll: 14, name: "Kirti",          test1: 8,    test2: 0    },
-  { roll: 15, name: "Suryanahu",      test1: 4,    test2: "Ab" },
-  { roll: 16, name: "Mohit",          test1: 4,    test2: "Na" },
-  { roll: 17, name: "Virat Singh",    test1: 6,    test2: "Ab" },
-  { roll: 18, name: "Rudransh",       test1: 10,   test2: 7    },
-  { roll: 19, name: "Sushant",        test1: 7,    test2: 6    },
-  { roll: 20, name: "Arnav",          test1: 0,    test2: 0    },
-  { roll: 21, name: "Deepanshu",      test1: 2,    test2: 0    },
-  { roll: 22, name: "Anushka 22",     test1: 2,    test2: 0    },
-  { roll: 23, name: "Utkarsh",        test1: 8,    test2: 10   },
-  { roll: 24, name: "Vibhav",         test1: 0,    test2: 1    },
-  { roll: 25, name: "Aadarsh",        test1: 7,    test2: "Ab" },
-  { roll: 26, name: "Sahil",          test1: 2,    test2: "Ab" },
-  { roll: 27, name: "Ayush Kumar",    test1: 6,    test2: 3    },
-  { roll: 28, name: "Awni",           test1: 6,    test2: 2    },
-  { roll: 29, name: "Aditya Praksh 29", test1: 7,  test2: 5    },
-  { roll: 30, name: "Abhigyan",       test1: 1,    test2: 0    },
-  { roll: 31, name: "Anushka 31",     test1: 5,    test2: 9    },
-  { roll: 32, name: "Shivam",         test1: 6,    test2: 2    },
-  { roll: 33, name: "Chirag",         test1: 6,    test2: 10   },
-  { roll: 34, name: "Khushi",         test1: 6,    test2: "Ab" },
-  { roll: 35, name: "Pratyaksh",      test1: 4,    test2: 6    },
-  { roll: 36, name: "Rahul",          test1: 7,    test2: 10   },
-  { roll: 37, name: "Manshi",         test1: 8,    test2: 8    },
-  { roll: 38, name: "Shivansh",       test1: "Ab", test2: 6    },
-  { roll: 39, name: "Abhishek",       test1: 2,    test2: "Ab" },
-  { roll: 40, name: "Utkarsh B.",     test1: 7,    test2: 8    },
+  { roll: 1, name: "Aditya 1", test1: 8, test2: 6 },
+  { roll: 2, name: "Shreya", test1: 7, test2: 4 },
+  { roll: 3, name: "Shourya", test1: "Ab", test2: "Ab" },
+  { roll: 4, name: "Mihika", test1: "Ab", test2: 4 },
+  { roll: 5, name: "Anuraj", test1: 10, test2: 9 },
+  { roll: 6, name: "Parth", test1: 10, test2: 9 },
+  { roll: 7, name: "Ravi", test1: 5, test2: 6 },
+  { roll: 8, name: "Ruchir", test1: 5, test2: 5 },
+  { roll: 9, name: "Sonali", test1: 7, test2: 7 },
+  { roll: 10, name: "Yesh", test1: 6, test2: 6 },
+  { roll: 11, name: "Isha", test1: 4, test2: 8 },
+  { roll: 12, name: "Ayush", test1: 7, test2: 6 },
+  { roll: 13, name: "Aman Kishor", test1: "Ab", test2: 10 },
+  { roll: 14, name: "Kirti", test1: 8, test2: 0 },
+  { roll: 15, name: "Suryanahu", test1: 4, test2: "Ab" },
+  { roll: 16, name: "Mohit", test1: 4, test2: "Na" },
+  { roll: 17, name: "Virat Singh", test1: 6, test2: "Ab" },
+  { roll: 18, name: "Rudransh", test1: 10, test2: 7 },
+  { roll: 19, name: "Sushant", test1: 7, test2: 6 },
+  { roll: 20, name: "Arnav", test1: 0, test2: 0 },
+  { roll: 21, name: "Deepanshu", test1: 2, test2: 0 },
+  { roll: 22, name: "Anushka 22", test1: 2, test2: 0 },
+  { roll: 23, name: "Utkarsh", test1: 8, test2: 10 },
+  { roll: 24, name: "Vibhav", test1: 0, test2: 1 },
+  { roll: 25, name: "Aadarsh", test1: 7, test2: "Ab" },
+  { roll: 26, name: "Sahil", test1: 2, test2: "Ab" },
+  { roll: 27, name: "Ayush Kumar", test1: 6, test2: 3 },
+  { roll: 28, name: "Awni", test1: 6, test2: 2 },
+  { roll: 29, name: "Aditya Praksh 29", test1: 7, test2: 5 },
+  { roll: 30, name: "Abhigyan", test1: 1, test2: 0 },
+  { roll: 31, name: "Anushka 31", test1: 5, test2: 9 },
+  { roll: 32, name: "Shivam", test1: 6, test2: 2 },
+  { roll: 33, name: "Chirag", test1: 6, test2: 10 },
+  { roll: 34, name: "Khushi", test1: 6, test2: "Ab" },
+  { roll: 35, name: "Pratyaksh", test1: 4, test2: 6 },
+  { roll: 36, name: "Rahul", test1: 7, test2: 10 },
+  { roll: 37, name: "Manshi", test1: 8, test2: 8 },
+  { roll: 38, name: "Shivansh", test1: "Ab", test2: 6 },
+  { roll: 39, name: "Abhishek", test1: 2, test2: "Ab" },
+  { roll: 40, name: "Utkarsh B.", test1: 7, test2: 8 },
 ];
 
 function processData(raw) {
@@ -60,36 +60,36 @@ function processData(raw) {
     const t1Label = t1 === null ? label(s.test1) : null;
     const t2Label = t2 === null ? label(s.test2) : null;
     const scores = [t1, t2].filter(v => v !== null);
-    const avg   = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : null;
+    const avg = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : null;
     const total = scores.length ? scores.reduce((a, b) => a + b, 0) : null;
-    const absentBoth  = t1 === null && t2 === null;
+    const absentBoth = t1 === null && t2 === null;
     const improvement = t1 !== null && t2 !== null ? t2 - t1 : null;
     return { ...s, t1, t2, t1Label, t2Label, avg, total, absentBoth, improvement };
   });
 }
 
-const STUDENTS   = processData(RAW_DATA);
-const t1Scores   = STUDENTS.filter(s => s.t1 !== null).map(s => s.t1);
-const t2Scores   = STUDENTS.filter(s => s.t2 !== null).map(s => s.t2);
-const t1Avg      = (t1Scores.reduce((a, b) => a + b, 0) / t1Scores.length).toFixed(2);
-const t2Avg      = (t2Scores.reduce((a, b) => a + b, 0) / t2Scores.length).toFixed(2);
-const t2Present  = t2Scores.length;
-const t2Absent   = STUDENTS.length - t2Present;
-const absentBothList  = STUDENTS.filter(s => s.absentBoth);
-const highestScorer   = [...STUDENTS].filter(s => s.avg !== null).sort((a, b) => b.avg - a.avg)[0];
+const STUDENTS = processData(RAW_DATA);
+const t1Scores = STUDENTS.filter(s => s.t1 !== null).map(s => s.t1);
+const t2Scores = STUDENTS.filter(s => s.t2 !== null).map(s => s.t2);
+const t1Avg = (t1Scores.reduce((a, b) => a + b, 0) / t1Scores.length).toFixed(2);
+const t2Avg = (t2Scores.reduce((a, b) => a + b, 0) / t2Scores.length).toFixed(2);
+const t2Present = t2Scores.length;
+const t2Absent = STUDENTS.length - t2Present;
+const absentBothList = STUDENTS.filter(s => s.absentBoth);
+const highestScorer = [...STUDENTS].filter(s => s.avg !== null).sort((a, b) => b.avg - a.avg)[0];
 const attendanceRatio = ((t2Present / STUDENTS.length) * 100).toFixed(1);
 
 // ─── COLOURS ─────────────────────────────────────────────────────────────────
 const C = {
-  primary:   "#2563eb",
+  primary: "#2563eb",
   secondary: "#4f46e5",
-  success:   "#10b981",
-  danger:    "#e11d48",
-  warning:   "#d97706",
-  info:      "#0ea5e9",
+  success: "#10b981",
+  danger: "#e11d48",
+  warning: "#d97706",
+  info: "#0ea5e9",
 };
 const GRADE_COLORS = [C.primary, C.secondary, C.info, C.danger, C.warning];
-const SECTIONS     = ["Overview", "Charts", "Insights", "Students", "Highlights"];
+const SECTIONS = ["Overview", "Charts", "Insights", "Students", "Highlights"];
 
 // Rolls that should always show their FULL name (not just first word) in charts
 const FULL_NAME_ROLLS = new Set([40]);
@@ -122,11 +122,11 @@ function downloadCSV() {
       s.absentBoth ? "Absent Both" : s.t2 === null ? "Absent T2" : "Present",
     ].join(",")
   );
-  const csv  = [header, ...rows].join("\n");
+  const csv = [header, ...rows].join("\n");
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement("a");
-  a.href     = url;
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
   a.download = "maths_test_results.csv";
   document.body.appendChild(a);
   a.click();
@@ -161,8 +161,8 @@ function downloadPDF() {
         badge,
       ];
     }),
-    styles:       { fontSize: 9, cellPadding: 3 },
-    headStyles:   { fillColor: [37, 99, 235], textColor: 255, fontStyle: "bold" },
+    styles: { fontSize: 9, cellPadding: 3 },
+    headStyles: { fillColor: [37, 99, 235], textColor: 255, fontStyle: "bold" },
     alternateRowStyles: { fillColor: [248, 250, 252] },
     columnStyles: { 0: { cellWidth: 12 }, 1: { cellWidth: 32 } },
   });
@@ -171,25 +171,25 @@ function downloadPDF() {
 }
 
 function getBadgeLabel(s) {
-  if (s.absentBoth)      return "Absent Both";
-  if (s.avg === null)    return "Partial Absent";
-  if (s.avg >= 9)        return "Topper";
-  if (s.avg >= 7)        return "Good";
-  if (s.avg >= 5)        return "Average";
-  if (s.avg >= 3)        return "Below Avg";
+  if (s.absentBoth) return "Absent Both";
+  if (s.avg === null) return "Partial Absent";
+  if (s.avg >= 9) return "Topper";
+  if (s.avg >= 7) return "Good";
+  if (s.avg >= 5) return "Average";
+  if (s.avg >= 3) return "Below Avg";
   return "Needs Help";
 }
 
 function getBadge(s) {
   const label = getBadgeLabel(s);
   const colorMap = {
-    "Absent Both":    C.danger,
+    "Absent Both": C.danger,
     "Partial Absent": C.warning,
-    "Topper":         C.success,
-    "Good":           C.info,
-    "Average":        C.primary,
-    "Below Avg":      C.warning,
-    "Needs Help":     C.danger,
+    "Topper": C.success,
+    "Good": C.info,
+    "Average": C.primary,
+    "Below Avg": C.warning,
+    "Needs Help": C.danger,
   };
   return { label, color: colorMap[label] };
 }
@@ -199,7 +199,7 @@ function AnimatedCounter({ target, duration = 1200 }) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     let current = 0;
-    const step  = Math.ceil(target / (duration / 16));
+    const step = Math.ceil(target / (duration / 16));
     const timer = setInterval(() => {
       current += step;
       if (current >= target) { setCount(target); clearInterval(timer); }
@@ -215,10 +215,10 @@ function Card({ children, className = "", style = {}, darkMode }) {
     <div
       className={`rounded-xl p-6 ${className}`}
       style={{
-        background:  darkMode ? "#1e293b" : "#ffffff",
-        border:      `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
-        boxShadow:   darkMode ? "0 4px 20px rgba(0,0,0,0.3)" : "0 4px 20px rgba(0,0,0,0.06)",
-        transition:  "all 0.2s ease",
+        background: darkMode ? "#1e293b" : "#ffffff",
+        border: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
+        boxShadow: darkMode ? "0 4px 20px rgba(0,0,0,0.3)" : "0 4px 20px rgba(0,0,0,0.06)",
+        transition: "all 0.2s ease",
         ...style,
       }}
     >
@@ -229,8 +229,8 @@ function Card({ children, className = "", style = {}, darkMode }) {
 
 function StatCard({ label, value, sub, color, isFloat, darkMode }) {
   const textColor = darkMode ? "#f8fafc" : "#0f172a";
-  const muted     = darkMode ? "#64748b" : "#94a3b8";
-  const mutedLabel= darkMode ? "#94a3b8" : "#64748b";
+  const muted = darkMode ? "#64748b" : "#94a3b8";
+  const mutedLabel = darkMode ? "#94a3b8" : "#64748b";
   return (
     <Card
       darkMode={darkMode}
@@ -251,7 +251,7 @@ function SectionHeader({ title, subtitle, textColor, mutedText }) {
   return (
     <div style={{ marginBottom: 32 }}>
       <h2 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 6px", color: textColor, letterSpacing: "-0.5px" }}>{title}</h2>
-      <p  style={{ color: mutedText, fontSize: 15, margin: 0 }}>{subtitle}</p>
+      <p style={{ color: mutedText, fontSize: 15, margin: 0 }}>{subtitle}</p>
     </div>
   );
 }
@@ -259,14 +259,14 @@ function SectionHeader({ title, subtitle, textColor, mutedText }) {
 function InsightCard({ title, value, color, darkMode }) {
   return (
     <div style={{
-      background:    darkMode ? "#1e293b" : "#ffffff",
-      borderTop:     `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
-      borderRight:   `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
-      borderBottom:  `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
-      borderLeft:    `5px solid ${color}`,
-      borderRadius:  12,
-      padding:      20,
-      boxShadow:    darkMode ? "0 2px 12px rgba(0,0,0,0.25)" : "0 2px 12px rgba(0,0,0,0.05)",
+      background: darkMode ? "#1e293b" : "#ffffff",
+      borderTop: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
+      borderRight: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
+      borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
+      borderLeft: `5px solid ${color}`,
+      borderRadius: 12,
+      padding: 20,
+      boxShadow: darkMode ? "0 2px 12px rgba(0,0,0,0.25)" : "0 2px 12px rgba(0,0,0,0.05)",
     }}>
       <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: darkMode ? "#94a3b8" : "#64748b", marginBottom: 8 }}>{title}</div>
       <div style={{ fontSize: 15, fontWeight: 700, color: darkMode ? "#f8fafc" : "#0f172a" }}>{value}</div>
@@ -296,20 +296,20 @@ function StudentRow({ s, color, rank, showAvg, extra, mutedText, darkMode }) {
 
 // ─── MAIN DASHBOARD ──────────────────────────────────────────────────────────
 export default function App() {
-  const [darkMode,       setDarkMode]       = useState(true);
-  const [search,         setSearch]         = useState("");
-  const [sortKey,        setSortKey]        = useState("roll");
-  const [sortDir,        setSortDir]        = useState("asc");
-  const [activeSection,  setActiveSection]  = useState("Overview");
-  const [sidebarOpen,    setSidebarOpen]    = useState(false);
-  const [distFilter,     setDistFilter]     = useState("both"); // "t1" | "t2" | "both"
+  const [darkMode, setDarkMode] = useState(true);
+  const [search, setSearch] = useState("");
+  const [sortKey, setSortKey] = useState("roll");
+  const [sortDir, setSortDir] = useState("asc");
+  const [activeSection, setActiveSection] = useState("Overview");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [distFilter, setDistFilter] = useState("both"); // "t1" | "t2" | "both"
   const windowWidth = useWindowWidth();
-  const isMobile    = windowWidth < 640;
-  const isTablet    = windowWidth < 900;
+  const isMobile = windowWidth < 640;
+  const isTablet = windowWidth < 900;
 
-  const bg        = darkMode ? "#0f172a" : "#f8fafc";
-  const textColor = darkMode ? "#f8fafc"  : "#0f172a";
-  const mutedText = darkMode ? "#94a3b8"  : "#64748b";
+  const bg = darkMode ? "#0f172a" : "#f8fafc";
+  const textColor = darkMode ? "#f8fafc" : "#0f172a";
+  const mutedText = darkMode ? "#94a3b8" : "#64748b";
 
   const filtered = useMemo(() => {
     let arr = STUDENTS.filter(s => s.name.toLowerCase().includes(search.toLowerCase()));
@@ -337,30 +337,30 @@ export default function App() {
   const distScores = useMemo(() => {
     const t1 = STUDENTS.filter(s => s.t1 !== null).map(s => s.t1);
     const t2 = STUDENTS.filter(s => s.t2 !== null).map(s => s.t2);
-    if (distFilter === "t1")   return t1;
-    if (distFilter === "t2")   return t2;
+    if (distFilter === "t1") return t1;
+    if (distFilter === "t2") return t2;
     return [...t1, ...t2];
   }, [distFilter]);
   const distributionData = [
-    { range: "0–2",  count: distScores.filter(v => v <= 2).length },
-    { range: "3–5",  count: distScores.filter(v => v >= 3 && v <= 5).length },
-    { range: "6–7",  count: distScores.filter(v => v >= 6 && v <= 7).length },
-    { range: "8–9",  count: distScores.filter(v => v >= 8 && v <= 9).length },
-    { range: "10",   count: distScores.filter(v => v === 10).length },
+    { range: "0–2", count: distScores.filter(v => v <= 2).length },
+    { range: "3–5", count: distScores.filter(v => v >= 3 && v <= 5).length },
+    { range: "6–7", count: distScores.filter(v => v >= 6 && v <= 7).length },
+    { range: "8–9", count: distScores.filter(v => v >= 8 && v <= 9).length },
+    { range: "10", count: distScores.filter(v => v === 10).length },
   ];
 
-  const top10        = [...STUDENTS].filter(s => s.avg !== null).sort((a, b) => b.avg - a.avg).slice(0, 10);
-  const top5         = top10.slice(0, 5);
+  const top10 = [...STUDENTS].filter(s => s.avg !== null).sort((a, b) => b.avg - a.avg).slice(0, 10);
+  const top5 = top10.slice(0, 5);
   const mostImproved = [...STUDENTS].filter(s => s.improvement !== null).sort((a, b) => b.improvement - a.improvement).slice(0, 5);
-  const needAttention= [...STUDENTS].filter(s => s.avg !== null && s.avg < 4).sort((a, b) => a.avg - b.avg);
-  const fullMarkers  = STUDENTS.filter(s => s.t1 === 10 || s.t2 === 10);
+  const needAttention = [...STUDENTS].filter(s => s.avg !== null && s.avg < 4).sort((a, b) => a.avg - b.avg);
+  const fullMarkers = STUDENTS.filter(s => s.t1 === 10 || s.t2 === 10);
 
   const pieData = [
     { name: "Present", value: t2Present },
-    { name: "Absent",  value: t2Absent  },
+    { name: "Absent", value: t2Absent },
   ];
 
-  const axisProps    = { stroke: mutedText, fontSize: 12 };
+  const axisProps = { stroke: mutedText, fontSize: 12 };
   const tooltipStyle = {
     contentStyle: {
       background: darkMode ? "#1e293b" : "#ffffff",
@@ -499,14 +499,14 @@ export default function App() {
 
         {/* STAT CARDS */}
         <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fill, minmax(min(${isMobile ? "140px" : "200px"}, 100%), 1fr))`, gap: isMobile ? 12 : 18, marginBottom: isMobile ? 40 : 60 }}>
-          <StatCard darkMode={darkMode} label="Total Students"    value={40}               color={C.primary}   />
-          <StatCard darkMode={darkMode} label="Present (Test 2)"  value={t2Present}        color={C.success}   />
-          <StatCard darkMode={darkMode} label="Absent (Test 2)"   value={t2Absent}         color={C.danger}    />
-          <StatCard darkMode={darkMode} label="Test 1 Average"    value={t1Avg}            color={C.info}      isFloat />
-          <StatCard darkMode={darkMode} label="Test 2 Average"    value={t2Avg}            color={C.secondary} isFloat />
+          <StatCard darkMode={darkMode} label="Total Students" value={40} color={C.primary} />
+          <StatCard darkMode={darkMode} label="Present (Test 2)" value={t2Present} color={C.success} />
+          <StatCard darkMode={darkMode} label="Absent (Test 2)" value={t2Absent} color={C.danger} />
+          <StatCard darkMode={darkMode} label="Test 1 Average" value={t1Avg} color={C.info} isFloat />
+          <StatCard darkMode={darkMode} label="Test 2 Average" value={t2Avg} color={C.secondary} isFloat />
           <StatCard darkMode={darkMode} label="Top Scorer" value={displayName(highestScorer)} color={C.success} isFloat />
           <StatCard darkMode={darkMode} label="Absent Both Tests" value={absentBothList.length} color={C.danger} />
-          <StatCard darkMode={darkMode} label="Attendance Rate"   value={`${attendanceRatio}%`} color={C.primary} isFloat />
+          <StatCard darkMode={darkMode} label="Attendance Rate" value={`${attendanceRatio}%`} color={C.primary} isFloat />
         </div>
 
         {/* CHARTS */}
@@ -592,7 +592,7 @@ export default function App() {
                     <YAxis domain={[0, 10]} {...axisProps} />
                     <Tooltip {...tooltipStyle} cursor={{ fill: darkMode ? "#334155" : "#f1f5f9" }} />
                     <Legend wrapperStyle={{ paddingTop: 20 }} />
-                    <Bar dataKey="Test 1" fill={C.primary}   radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="Test 1" fill={C.primary} radius={[4, 4, 0, 0]} />
                     <Bar dataKey="Test 2" fill={C.secondary} radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -606,14 +606,14 @@ export default function App() {
           <SectionHeader title="Smart Insights" subtitle="Automated analysis based on class performance" textColor={textColor} mutedText={mutedText} />
           <div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(min(260px, 100%), 1fr))`, gap: isMobile ? 12 : 18 }}>
             <InsightCard darkMode={darkMode} title="Best Performer" color={C.info} value={`${highestScorer.name} (Avg: ${highestScorer.avg?.toFixed(1)})`} />
-            <InsightCard darkMode={darkMode} title="Most Improved"         color={C.success}   value={`${mostImproved[0]?.name} (+${mostImproved[0]?.improvement} marks)`} />
-            <InsightCard darkMode={darkMode} title="Highest Score Recorded" color={C.primary}  value={`${Math.max(...t1Scores, ...t2Scores)} / 10`} />
-            <InsightCard darkMode={darkMode} title="Lowest Score Recorded"  color={C.danger}   value={`${Math.min(...t1Scores, ...t2Scores)} / 10`} />
-            <InsightCard darkMode={darkMode} title="Needs Attention"        color={C.warning}  value={`${needAttention.length} students (avg < 4)`} />
-            <InsightCard darkMode={darkMode} title="Consistently Absent"    color={C.danger}   value={absentBothList.length > 0 ? absentBothList.map(s => s.name).join(", ") : "None"} />
-            <InsightCard darkMode={darkMode} title="Perfect Scores (10/10)" color={C.success}  value={`${allScores.filter(v => v === 10).length} instances`} />
-            <InsightCard darkMode={darkMode} title="Attendance Rate"        color={C.secondary} value={`${attendanceRatio}% present in Test 2`} />
-            <InsightCard darkMode={darkMode} title="Overall Class Trend"    color={C.info}     value={`Avg shifted by ${(parseFloat(t2Avg) - parseFloat(t1Avg)).toFixed(2)} marks`} />
+            <InsightCard darkMode={darkMode} title="Most Improved" color={C.success} value={`${mostImproved[0]?.name} (+${mostImproved[0]?.improvement} marks)`} />
+            <InsightCard darkMode={darkMode} title="Highest Score Recorded" color={C.primary} value={`${Math.max(...t1Scores, ...t2Scores)} / 10`} />
+            <InsightCard darkMode={darkMode} title="Lowest Score Recorded" color={C.danger} value={`${Math.min(...t1Scores, ...t2Scores)} / 10`} />
+            <InsightCard darkMode={darkMode} title="Needs Attention" color={C.warning} value={`${needAttention.length} students (avg < 4)`} />
+            <InsightCard darkMode={darkMode} title="Consistently Absent" color={C.danger} value={absentBothList.length > 0 ? absentBothList.map(s => s.name).join(", ") : "None"} />
+            <InsightCard darkMode={darkMode} title="Perfect Scores (10/10)" color={C.success} value={`${allScores.filter(v => v === 10).length} instances`} />
+            <InsightCard darkMode={darkMode} title="Attendance Rate" color={C.secondary} value={`${attendanceRatio}% present in Test 2`} />
+            <InsightCard darkMode={darkMode} title="Overall Class Trend" color={C.info} value={`Avg shifted by ${(parseFloat(t2Avg) - parseFloat(t1Avg)).toFixed(2)} marks`} />
           </div>
         </div>
 
@@ -651,8 +651,8 @@ export default function App() {
                 </thead>
                 <tbody>
                   {filtered.map(s => {
-                    const badge   = getBadge(s);
-                    const isAbsent= s.absentBoth;
+                    const badge = getBadge(s);
+                    const isAbsent = s.absentBoth;
                     const td = { padding: isMobile ? "10px 12px" : "13px 18px", borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`, whiteSpace: "nowrap" };
                     return (
                       <tr key={s.roll}
