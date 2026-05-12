@@ -17,7 +17,7 @@ const RAW_DATA = [
   { roll: 7,  name: "Ravi",           test1: 5,    test2: 6    },
   { roll: 8,  name: "Ruchir",         test1: 5,    test2: 5    },
   { roll: 9,  name: "Sonali",         test1: 7,    test2: 7    },
-  { roll: 10, name: "Yesh",           test1: 4,    test2: "Ab" },
+  { roll: 10, name: "Yesh",           test1: 4,    test2: 6    },
   { roll: 11, name: "Isha",           test1: 6,    test2: 8    },
   { roll: 12, name: "Ayush",          test1: 7,    test2: 6    },
   { roll: 13, name: "Aman Kishor",    test1: "Ab", test2: 10   },
