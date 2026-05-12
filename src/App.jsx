@@ -322,7 +322,13 @@ export default function App() {
     .filter(s => s.t1 !== null && s.t2 !== null)
     .map(s => ({ name: displayName(s), "Test 1": s.t1, "Test 2": s.t2 }));
 
-  // Score distribution — reactive to distFilter
+  // allScores always = both tests (used in insights stats)
+  const allScores = [
+    ...STUDENTS.filter(s => s.t1 !== null).map(s => s.t1),
+    ...STUDENTS.filter(s => s.t2 !== null).map(s => s.t2),
+  ];
+
+  // Score distribution — reactive to distFilter (chart only)
   const distScores = useMemo(() => {
     const t1 = STUDENTS.filter(s => s.t1 !== null).map(s => s.t1);
     const t2 = STUDENTS.filter(s => s.t2 !== null).map(s => s.t2);
