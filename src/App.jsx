@@ -254,10 +254,12 @@ function SectionHeader({ title, subtitle, textColor, mutedText }) {
 function InsightCard({ title, value, color, darkMode }) {
   return (
     <div style={{
-      background:   darkMode ? "#1e293b" : "#ffffff",
-      border:       `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
-      borderLeft:   `4px solid ${color}`,
-      borderRadius: 12,
+      background:    darkMode ? "#1e293b" : "#ffffff",
+      borderTop:     `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
+      borderRight:   `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
+      borderBottom:  `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`,
+      borderLeft:    `5px solid ${color}`,
+      borderRadius:  12,
       padding:      20,
       boxShadow:    darkMode ? "0 2px 12px rgba(0,0,0,0.25)" : "0 2px 12px rgba(0,0,0,0.05)",
     }}>
