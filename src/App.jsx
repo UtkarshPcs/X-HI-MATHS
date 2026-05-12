@@ -291,12 +291,13 @@ function StudentRow({ s, color, rank, showAvg, extra, mutedText, darkMode }) {
 
 // ─── MAIN DASHBOARD ──────────────────────────────────────────────────────────
 export default function App() {
-  const [darkMode,       setDarkMode]       = useState(false);
+  const [darkMode,       setDarkMode]       = useState(true);
   const [search,         setSearch]         = useState("");
   const [sortKey,        setSortKey]        = useState("roll");
   const [sortDir,        setSortDir]        = useState("asc");
   const [activeSection,  setActiveSection]  = useState("Overview");
   const [sidebarOpen,    setSidebarOpen]    = useState(false);
+  const [distFilter,     setDistFilter]     = useState("both"); // "t1" | "t2" | "both"
   const windowWidth = useWindowWidth();
   const isMobile    = windowWidth < 640;
   const isTablet    = windowWidth < 900;
@@ -321,17 +322,20 @@ export default function App() {
     .filter(s => s.t1 !== null && s.t2 !== null)
     .map(s => ({ name: displayName(s), "Test 1": s.t1, "Test 2": s.t2 }));
 
-  // FIX: Count individual test-score entries per bucket, not students
-  const allScores = [
-    ...STUDENTS.filter(s => s.t1 !== null).map(s => s.t1),
-    ...STUDENTS.filter(s => s.t2 !== null).map(s => s.t2),
-  ];
+  // Score distribution — reactive to distFilter
+  const distScores = useMemo(() => {
+    const t1 = STUDENTS.filter(s => s.t1 !== null).map(s => s.t1);
+    const t2 = STUDENTS.filter(s => s.t2 !== null).map(s => s.t2);
+    if (distFilter === "t1")   return t1;
+    if (distFilter === "t2")   return t2;
+    return [...t1, ...t2];
+  }, [distFilter]);
   const distributionData = [
-    { range: "0–2",  count: allScores.filter(v => v <= 2).length },
-    { range: "3–5",  count: allScores.filter(v => v >= 3 && v <= 5).length },
-    { range: "6–7",  count: allScores.filter(v => v >= 6 && v <= 7).length },
-    { range: "8–9",  count: allScores.filter(v => v >= 8 && v <= 9).length },
-    { range: "10",   count: allScores.filter(v => v === 10).length },
+    { range: "0–2",  count: distScores.filter(v => v <= 2).length },
+    { range: "3–5",  count: distScores.filter(v => v >= 3 && v <= 5).length },
+    { range: "6–7",  count: distScores.filter(v => v >= 6 && v <= 7).length },
+    { range: "8–9",  count: distScores.filter(v => v >= 8 && v <= 9).length },
+    { range: "10",   count: distScores.filter(v => v === 10).length },
   ];
 
   const top10        = [...STUDENTS].filter(s => s.avg !== null).sort((a, b) => b.avg - a.avg).slice(0, 10);
@@ -537,8 +541,22 @@ export default function App() {
               </ResponsiveContainer>
             </Card>
             <Card darkMode={darkMode}>
-              <h3 style={{ color: textColor, marginBottom: 18, fontWeight: 700, fontSize: 15 }}>Overall Score Distribution</h3>
-              <ResponsiveContainer width="100%" height={310}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10, marginBottom: 16 }}>
+                <h3 style={{ color: textColor, fontWeight: 700, fontSize: 15, margin: 0 }}>Overall Score Distribution</h3>
+                <div style={{ display: "flex", gap: 6 }}>
+                  {[("both"), ("t1"), ("t2")].map(f => (
+                    <button key={f} onClick={() => setDistFilter(f)} style={{
+                      padding: "5px 14px", borderRadius: 20, fontSize: 12, fontWeight: 700,
+                      cursor: "pointer", border: "none", transition: "all 0.2s",
+                      background: distFilter === f ? C.primary : (darkMode ? "#334155" : "#e2e8f0"),
+                      color: distFilter === f ? "#fff" : mutedText,
+                    }}>
+                      {f === "both" ? "Both" : f === "t1" ? "Test 1" : "Test 2"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <ResponsiveContainer width="100%" height={290}>
                 <BarChart data={distributionData} margin={{ top: 8 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={darkMode ? "#334155" : "#e2e8f0"} />
                   <XAxis dataKey="range" {...axisProps} />
