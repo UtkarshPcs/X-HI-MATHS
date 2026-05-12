@@ -685,7 +685,20 @@ export default function App() {
         </div>
 
         <footer style={{ textAlign: "center", padding: "40px 20px", color: mutedText, fontSize: 14, borderTop: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}` }}>
-          Designed &amp; Developed by <strong>Utkarsh</strong>
+          <a
+            href="https://wa.me/918102783645"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: mutedText,
+              textDecoration: "none",
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = "#25D366"}
+            onMouseLeave={e => e.currentTarget.style.color = mutedText}
+          >
+            Designed &amp; Developed by <strong>Utkarsh</strong>
+          </a>
         </footer>
       </div>
     </div>
