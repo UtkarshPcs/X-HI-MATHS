@@ -17,8 +17,8 @@ const RAW_DATA = [
   { roll: 7,  name: "Ravi",           test1: 5,    test2: 6    },
   { roll: 8,  name: "Ruchir",         test1: 5,    test2: 5    },
   { roll: 9,  name: "Sonali",         test1: 7,    test2: 7    },
-  { roll: 10, name: "Yesh",           test1: 4,    test2: 6    },
-  { roll: 11, name: "Isha",           test1: 6,    test2: 8    },
+  { roll: 10, name: "Yesh",           test1: 6,    test2: 6    },
+  { roll: 11, name: "Isha",           test1: 6,    test2: 4    },
   { roll: 12, name: "Ayush",          test1: 7,    test2: 6    },
   { roll: 13, name: "Aman Kishor",    test1: "Ab", test2: 10   },
   { roll: 14, name: "Kirti",          test1: 8,    test2: 0    },
@@ -715,16 +715,23 @@ export default function App() {
             href="https://wa.me/918102783645"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              color: mutedText,
-              textDecoration: "none",
-              transition: "color 0.2s",
-            }}
+            style={{ color: mutedText, textDecoration: "none", transition: "color 0.2s" }}
             onMouseEnter={e => e.currentTarget.style.color = "#25D366"}
             onMouseLeave={e => e.currentTarget.style.color = mutedText}
           >
             Designed &amp; Developed by <strong>Utkarsh</strong>
           </a>
+          <div style={{ marginTop: 10, fontSize: 13, color: mutedText }}>
+            ⚠️ If you think your marks are incorrect, directly{" "}
+            <a
+              href="https://wa.me/918102783645"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#25D366", fontWeight: 700, textDecoration: "none" }}
+            >
+              contact on WhatsApp
+            </a>
+          </div>
         </footer>
       </div>
     </div>
