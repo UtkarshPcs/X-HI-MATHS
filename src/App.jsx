@@ -356,7 +356,7 @@ export default function App() {
 
   const top10 = [...STUDENTS].filter(s => s.avg !== null).sort((a, b) => b.avg - a.avg).slice(0, 10);
   const top5 = top10.slice(0, 5);
-  const mostImproved = [...STUDENTS].filter(s => s.improvement !== null).sort((a, b) => b.improvement - a.improvement).slice(0, 5);
+  const mostImproved = [...STUDENTS].filter(s => s.improvement !== null && s.t1 !== null).sort((a, b) => b.improvement - a.improvement).slice(0, 5);
   const needAttention = [...STUDENTS].filter(s => s.avg !== null && s.avg < 4).sort((a, b) => a.avg - b.avg);
   const fullMarkers = STUDENTS.filter(s => s.t1 === 10 || s.t2 === 10);
 
