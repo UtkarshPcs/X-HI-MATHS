@@ -52,18 +52,23 @@ const RAW_DATA = [
 
 function processData(raw) {
   return raw.map(s => {
-    // "Ab" = absent, "Na" = score not available — both treated as null in stats
+    // "Ab" = absent (counts as 0 in avg), "Na" = data not available (excluded)
     const parse = v => (v === "Ab" || v === "Na") ? null : v;
     const label = v => v === "Na" ? "N/A" : "Absent";
     const t1 = parse(s.test1);
     const t2 = parse(s.test2);
     const t1Label = t1 === null ? label(s.test1) : null;
     const t2Label = t2 === null ? label(s.test2) : null;
-    const scores = [t1, t2].filter(v => v !== null);
-    const avg = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : null;
-    const total = scores.length ? scores.reduce((a, b) => a + b, 0) : null;
+
+    // Effective scores: "Ab" → 0 (counted), "Na" → null (excluded)
+    const t1Eff = s.test1 === "Ab" ? 0 : t1;
+    const t2Eff = s.test2 === "Ab" ? 0 : t2;
+    const effScores = [t1Eff, t2Eff].filter(v => v !== null);
+
+    const avg = effScores.length ? effScores.reduce((a, b) => a + b, 0) / effScores.length : null;
+    const total = effScores.length ? effScores.reduce((a, b) => a + b, 0) : null;
     const absentBoth = t1 === null && t2 === null;
-    const improvement = t1 !== null && t2 !== null ? t2 - t1 : null;
+    const improvement = t1Eff !== null && t2Eff !== null ? t2Eff - t1Eff : null;
     return { ...s, t1, t2, t1Label, t2Label, avg, total, absentBoth, improvement };
   });
 }
