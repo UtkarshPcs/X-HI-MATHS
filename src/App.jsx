@@ -308,6 +308,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("Overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [distFilter, setDistFilter] = useState("both"); // "t1" | "t2" | "both"
+  const [fullFilter, setFullFilter] = useState("both"); // "t1" | "t2" | "both"
   const windowWidth = useWindowWidth();
   const isMobile = windowWidth < 640;
   const isTablet = windowWidth < 900;
@@ -699,11 +700,39 @@ export default function App() {
               {mostImproved.map(s => <StudentRow key={s.roll} s={s} color={C.secondary} extra={`+${s.improvement} marks`} mutedText={mutedText} darkMode={darkMode} />)}
             </Card>
             <Card darkMode={darkMode}>
-              <h3 style={{ color: C.success, marginBottom: 14, fontWeight: 700, fontSize: 15, borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`, paddingBottom: 12 }}>⭐ Full Marks (10/10)</h3>
-              {[...new Set(fullMarkers.map(s => s.roll))].map(r => {
-                const s = STUDENTS.find(x => x.roll === r);
-                return <StudentRow key={r} s={s} color={C.success} extra={`T1: ${s.t1 ?? "Ab"} / T2: ${s.t2 ?? "Ab"}`} mutedText={mutedText} darkMode={darkMode} />;
-              })}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10, marginBottom: 14, borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`, paddingBottom: 12 }}>
+                <h3 style={{ color: C.success, fontWeight: 700, fontSize: 15, margin: 0 }}>⭐ Full Marks (10/10)</h3>
+                <div style={{ display: "flex", gap: 6 }}>
+                  {["both", "t1", "t2"].map(f => (
+                    <button key={f} onClick={() => setFullFilter(f)} style={{
+                      padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 700,
+                      cursor: "pointer", border: "none", transition: "all 0.2s",
+                      background: fullFilter === f ? C.success : (darkMode ? "#334155" : "#e2e8f0"),
+                      color: fullFilter === f ? "#fff" : mutedText,
+                    }}>
+                      {f === "both" ? "Both" : f === "t1" ? "Test 1" : "Test 2"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              {(() => {
+                const rolls = [...new Set(
+                  STUDENTS
+                    .filter(s =>
+                      fullFilter === "t1" ? s.t1 === 10 :
+                      fullFilter === "t2" ? s.t2 === 10 :
+                      s.t1 === 10 || s.t2 === 10
+                    )
+                    .map(s => s.roll)
+                )];
+                if (rolls.length === 0)
+                  return <div style={{ color: mutedText, fontSize: 14 }}>No full marks in this selection.</div>;
+                return rolls.map(r => {
+                  const s = STUDENTS.find(x => x.roll === r);
+                  const extra = fullFilter === "t1" ? "T1: 10" : fullFilter === "t2" ? "T2: 10" : `T1: ${s.t1 ?? "Ab"} / T2: ${s.t2 ?? "Ab"}`;
+                  return <StudentRow key={r} s={s} color={C.success} extra={extra} mutedText={mutedText} darkMode={darkMode} />;
+                });
+              })()}
             </Card>
             <Card darkMode={darkMode}>
               <h3 style={{ color: C.warning, marginBottom: 14, fontWeight: 700, fontSize: 15, borderBottom: `1px solid ${darkMode ? "#334155" : "#e2e8f0"}`, paddingBottom: 12 }}>⚠ Needs Attention (Avg &lt; 4)</h3>
